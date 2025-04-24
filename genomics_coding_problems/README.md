@@ -25,6 +25,8 @@ Each script in this collection builds towards solving more complex tasks using f
 | `13_expectation_maximization_motif_search.py` | Use Expectation-Maximization for probabilistic motif search. |
 | `14_brute_force_motif_search.py` | Explore all possible k-mers to find the best motifs (brute force). |
 | `15_gibbs_sampler_motif_search.py` | Discover motifs using the Gibbs sampling technique. |
+| `16_neighbourhood_of_a_k_mer.py` | List all possible k-mers in the neighbourhood located within a given Hamming distance. |
+| `17_find_variants_in_a_DNA_sequence.py` | Find all variants (SNPs, insertions and deletions) of a sample DNA sequence relative to a given reference DNA sequence. |
 
 ---
 
