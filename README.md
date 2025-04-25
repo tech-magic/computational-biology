@@ -21,6 +21,9 @@ Welcome to an integrated project exploring **computational biology**, **multi-om
 This section provides theoretical foundations and algorithmic guides for understanding computational biology.
 
 ### Files:
+- `cellular_automata_basics.md`  
+  Intro to basic concepts of cellular automata for computational applications.
+
 - `computational_biology_basic_concepts.md`  
   Intro to molecular biology concepts for computational applications.
 
