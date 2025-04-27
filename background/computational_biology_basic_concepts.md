@@ -103,6 +103,9 @@ mindmap
 | **Chromosomes** | DNA-packed structures in the nucleus |
 
 ### 🧬 DNA, RNA, Proteins
+
+![DNA Made Simple: A Visual Guide for Everyone](images/DNA_double_helix.jpg)
+
 | Term          | Meaning |
 |---------------|--------|
 | **DNA**       | Blueprint of life made of nucleotides (A, C, G, T) |
