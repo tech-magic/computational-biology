@@ -55,7 +55,7 @@ Every person has a **unique balance** (Prakriti) of these Doshas.
 
 ```mermaid
 graph TD
-    subgraph Ayurvedic Philosophy
+    subgraph "<b>Ayurvedic</b> (holistic)"
         A[Human Body and Mind]
         A --> B(Vatha Balance)
         A --> C(Pitha Balance)
@@ -63,15 +63,23 @@ graph TD
         B & C & D --> E{"Is in PERSONAL Prakriti (Perfect Equilibrium unique to the Patient)?"}
         E -- Is inline with Prakriti --> F[Good Health]
         E -- Is out of Prakriti (Imbalance) --> G[Disease]
-        G --> H[Holistic Correction via Ayurveda]
-        H --> F
+        G --> H["Holistic Correction via Ayurveda <br/> (environment, mind, body and soul)"]
+        H --> HH["Treatments<br/>based on the unique<br/>Prakriti<br/>of each person"]
+        HH --> HHH["Gradual restoration to Prakriti<br/>(slow, continous recovery)"]
+        HHH --> F
     end
 
-    subgraph Western Medicine
-        G2[Disease Detected]
-        G2 --> I[Treat Symptom Directly]
-        I --> J[Quick Relief but Side Effects]
-        J --> K[Possible New Problems]
+    subgraph "<b>Western</b> (divide-conquer)"
+        K[Patient complains about initial symptoms]
+        K --> L["Disease (or diseases) detected with <br/>Deductive Reasoning<br/> using initial symptoms"]
+        L --> M["Patient redirected to Specialist(s) <br/> (divide-and-conquer)"]
+        M --> N(Cardiologist)
+        M --> P(Gastroentorologist)
+        M --> R(Chest Physician)
+        N & P & R --> S["Patients are treated in isolation by different specialists"]
+        S --> SS["Treatments starts with global/local standards. Then tailored per person-based on post-observations"]
+        SS --> T[Quick Relief for initial symptoms, BUT Side Effects]
+        T --> U[Possible new Problems with new Symptoms]
     end
 ```
 
