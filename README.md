@@ -3,6 +3,12 @@
 
 Welcome to an integrated project exploring **computational biology**, **multi-omics data modeling**, and **cellular automata (CA)** simulations across various biological systems. This repository includes theoretical foundations, problem-solving scripts, and simulation engines for genomics, nephrology, and personalized Ayurveda.
 
+<p align="center">
+  <img src="background/images/DNA_double_helix.jpg" alt="DNA Made Simple: A Visual Guide for Everyone" width="600"/>
+  <br/>
+  <em>DNA Made Simple: A Visual Guide for Everyone</em>
+</p>
+
 ---
 
 ## 📁 Project Structure
