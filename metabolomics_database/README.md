@@ -52,7 +52,9 @@ erDiagram
 ### PERSON Table
 The `PERSON` table stores information about individuals in the study. The table includes dosha scores to track the Ayurvedic constitution of the person.
 
-Example Data:
+Note: `vatha_score`, `pitha_score` and `kapha_score` are initially NULL. (See Section **Personalized Dosha Updates based on a given a Sample**)
+
+#### Example Data:
 
 | person_id | first_name | last_name | birth_date | gender | vatha_score | pitha_score | kapha_score |
 |-----------|------------|-----------|------------|--------|-------------|-------------|-------------|
@@ -63,7 +65,7 @@ Example Data:
 ### SAMPLE Table
 The `SAMPLE` table stores sample information, including the person associated with the sample and the collection date.
 
-Example Data:
+#### Example Data:
 
 | sample_id | person_id | sample_date |
 |-----------|-----------|-------------|
@@ -74,7 +76,7 @@ Example Data:
 ### METABOLITE Table
 The `METABOLITE` table stores information about metabolites, including their names and classifications.
 
-Example Data:
+#### Example Data:
 
 | metabolite_id | metabolite_name | metabolite_class |
 |---------------|-----------------|------------------|
@@ -85,7 +87,7 @@ Example Data:
 ### SAMPLE_METABOLITE Table
 The `SAMPLE_METABOLITE` table links samples to metabolites, capturing the concentration of metabolites measured in each sample.
 
-Example Data:
+#### Example Data:
 
 | sample_metabolite_id | sample_id | metabolite_id | concentration |
 |----------------------|-----------|---------------|---------------|
@@ -96,7 +98,7 @@ Example Data:
 ### DOSHA_MAPPING Table
 The `DOSHA_MAPPING` table maps metabolites to doshas, with a weight factor indicating how strongly each metabolite contributes to a particular dosha.
 
-Example Data:
+#### Example Data:
 
 | dosha_mapping_id | metabolite_id | dosha_type | weight_factor |
 |------------------|---------------|------------|---------------|
@@ -133,8 +135,9 @@ WHERE sm.sample_id = 1001;
 
 ---
 
-# Personalized Dosha Calculation based on Inserting a Sample (Python Code)
+# Personalized Dosha Updates based on a given a Sample
 
+#### Example Python Code:
 ```python
 import sqlite3
 
@@ -196,6 +199,16 @@ update_dosha_scores(sample_id=1001)
 ---
 
 # Personalized Prakriti Determination
+
+#### Hypothetical Prakriti Rules
+
+| Condition                                                 | Interpretation         |
+|-----------------------------------------------------------|------------------------|
+| Highest dosha > 40% and second-highest difference > 10%   | Single Dosha Dominant  |
+| Two doshas > 30% and within 10% of each other             | Dual Dosha             |
+| Otherwise                                                 | Tridoshic (balanced)   |
+
+#### Example Python Code:
 
 ```python
 percent_vatha = (vatha_score / (vatha_score + pitha_score + kapha_score)) * 100
