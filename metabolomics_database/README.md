@@ -1,6 +1,4 @@
-# Metabolomics Database Schema, Dosha Calculation, and Prakriti Evaluation
-
----
+# Metabolomics Database Schema with Ayurvedic Principles
 
 ## 1. Metabolomics Database Schema (Mermaid.js ER Diagram)
 
@@ -106,7 +104,36 @@ Example Data:
 | 2002             | 502           | Pitha      | 1.2           |
 | 2003             | 503           | Kapha      | 0.5           |
 
-## 3. Python Code to Update Dosha Values Over Time
+## 3. Useful Queries
+
+#### Select all dosha-related data for a person
+
+```sql
+SELECT
+    p.first_name,
+    p.last_name,
+    p.vatha_score,
+    p.pitha_score,
+    p.kapha_score
+FROM PERSON p
+WHERE p.person_id = 1;
+```
+
+#### Get metabolite information for a specific sample
+
+```sql
+SELECT
+    sm.concentration,
+    m.metabolite_name,
+    m.metabolite_class
+FROM SAMPLE_METABOLITE sm
+JOIN METABOLITE m ON sm.metabolite_id = m.metabolite_id
+WHERE sm.sample_id = 1001;
+```
+
+---
+
+# Personalized Dosha Calculation based on Inserting a Sample (Python Code)
 
 ```python
 import sqlite3
@@ -166,3 +193,32 @@ def update_dosha_scores(sample_id, db_path="metabolomics.db"):
 update_dosha_scores(sample_id=1001)
 ```
 
+---
+
+# Personalized Prakriti Determination
+
+```python
+percent_vatha = (vatha_score / (vatha_score + pitha_score + kapha_score)) * 100
+percent_pitha = (pitha_score / (vatha_score + pitha_score + kapha_score)) * 100
+percent_kapha = (kapha_score / (vatha_score + pitha_score + kapha_score)) * 100
+
+# Sorts dosha percentages highest to lowest.
+# dosha_list[0] will contain the Dosha with the highest percentage.
+dosha_list = sorted(
+    [('Vatha', percent_vatha), ('Pitha', percent_pitha), ('Kapha', percent_kapha)],
+    key=lambda x: x[1],
+    reverse=True
+)
+
+# Condition	                                                  Interpretation
+# Highest dosha > 40% and second-highest difference > 10%	  Single Dosha Dominant
+# Two doshas > 30% and within 10% of each other	              Dual Dosha
+# Otherwise	                                                  Tridoshic (balanced)
+if dosha_list[0][1] > 40 and (dosha_list[0][1] - dosha_list[1][1]) > 10:
+    prakriti = f"{dosha_list[0][0]} dominant"
+elif dosha_list[0][1] > 30 and dosha_list[1][1] > 30 and abs(dosha_list[0][1] - dosha_list[1][1]) < 10:
+    prakriti = f"{dosha_list[0][0]}-{dosha_list[1][0]} dual"
+else:
+    prakriti = "Tridoshic (Vatha-Pitha-Kapha)"
+
+```
