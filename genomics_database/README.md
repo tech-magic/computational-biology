@@ -1,4 +1,4 @@
-# Database Schema for Genomics
+# An Example Relational Database Schema for storing Genomics Data
 
 ```mermaid
 erDiagram
@@ -88,7 +88,9 @@ erDiagram
     SEQUENCES ||--o| ALIGNMENTS : has
 ```
 
-# Biological Experiment Tracking System - ERD with Examples
+---
+
+# Example Genomics Schema - Explanation (with possible examples)
 
 ## EXPERIMENTS
 Represents the details of an experiment.
