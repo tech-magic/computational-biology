@@ -110,7 +110,7 @@ Represents the details of an experiment.
 | 1             | Gene Expression Study     | Gene Expression | 2023-05-10      | Illumina | Study of gene expression in cancer cells      |
 | 2             | Cancer Mutations Study    | Genomic Sequencing | 2024-01-15   | Nanopore | Mapping mutations in humans                   |
 
----
+
 
 ## SAMPLES
 Represents biological samples collected during an experiment.
@@ -132,7 +132,7 @@ Represents biological samples collected during an experiment.
 | 101       | Sample A    | Homo sapiens | Lung        | 2023-04-01      | M   | 45  | 1             |
 | 102       | Sample B    | Mus musculus | Liver       | 2023-05-15      | F   | 32  | 2             |
 
----
+
 
 ## GENES
 Contains information about genes under study.
@@ -153,7 +153,7 @@ Contains information about genes under study.
 | 1       | BRCA1       | Breast Cancer 1    | 17         | 43000000       | 45000000     | +      |
 | 2       | TP53        | Tumor Protein p53  | 17         | 75500000       | 75700000     | -      |
 
----
+
 
 ## GENE_VARIANTS
 Describes variations within genes (e.g., mutations).
@@ -175,7 +175,7 @@ Describes variations within genes (e.g., mutations).
 | 1001       | 1       | 17         | 43100000 | A                | T              | SNP          | High   |
 | 1002       | 2       | 17         | 75550000 | G                | A              | Deletion     | Low    |
 
----
+
 
 ## GENE_EXPRESSION
 Stores the expression levels of genes in various samples.
@@ -195,7 +195,7 @@ Stores the expression levels of genes in various samples.
 | 201           | 1       | 101       | 5.2              | RPKM  | qPCR   |
 | 202           | 2       | 102       | 0.8              | FPKM  | RNA-Seq|
 
----
+
 
 ## SEQUENCES
 Represents the sequence data from samples.
@@ -215,7 +215,7 @@ Represents the sequence data from samples.
 | 301         | 101       | AGTCTGAC      | 40 38 36       | Aligned          | hg38             |
 | 302         | 102       | GTCAGTCA      | 30 28 25       | Unaligned        | mm10             |
 
----
+
 
 ## ALIGNMENTS
 Represents alignment data for sequence comparisons.
@@ -236,7 +236,7 @@ Represents alignment data for sequence comparisons.
 | 401          | 301         | AGTCTGAC         | 95.6            | Pairwise        | hg38             | alignment1.bam |
 | 402          | 302         | GTCAGTCA         | 89.2            | Multiple        | mm10             | alignment2.bam |
 
----
+
 
 ## METADATA
 Contains additional metadata associated with samples.
@@ -254,3 +254,192 @@ Contains additional metadata associated with samples.
 |-------------|-----------|----------------|-----------|----------------------|
 | 501         | 101       | patient_id     | 12345     | 2023-04-01 10:00     |
 | 502         | 102       | treatment_date | 2023-04-01| 2023-05-15 14:30     |
+
+---
+
+# Useful Queries
+
+### 1. **Get All Experiments with Their Start Date and Platform**
+
+```sql
+SELECT experiment_name, experiment_date, platform
+FROM EXPERIMENTS;
+```
+
+### 2. **Track the Progress of an Experiment by Its Samples**
+
+```sql
+SELECT experiment_name, sample_name, collection_date
+FROM EXPERIMENTS e
+JOIN SAMPLES s ON e.experiment_id = s.experiment_id
+WHERE e.experiment_id = 1;
+```
+
+### 3. **Get Samples with Gene Expression Levels Greater Than a Certain Threshold**
+
+```sql
+SELECT s.sample_name, g.gene_symbol, ge.expression_level
+FROM GENE_EXPRESSION ge
+JOIN SAMPLES s ON ge.sample_id = s.sample_id
+JOIN GENES g ON ge.gene_id = g.gene_id
+WHERE ge.expression_level > 5;
+```
+
+### 4. Compare Gene Expression Between Two Different Samples
+
+```sql
+SELECT s.sample_name, g.gene_symbol, ge.expression_level
+FROM GENE_EXPRESSION ge
+JOIN SAMPLES s ON ge.sample_id = s.sample_id
+JOIN GENES g ON ge.gene_id = g.gene_id
+WHERE s.sample_name IN ('Sample1', 'Sample2');
+```
+
+### 5. Get All Gene Variants for a Specific Gene and Their Impact
+
+```sql
+SELECT g.gene_symbol, gv.variant_type, gv.impact
+FROM GENES g
+JOIN GENE_VARIANTS gv ON g.gene_id = gv.gene_id
+WHERE g.gene_symbol = 'TP53';
+```
+
+### 6. List All Mutations (Variants) for a Specific Chromosome
+
+```sql
+SELECT gv.variant_id, gv.variant_type, gv.impact
+FROM GENE_VARIANTS gv
+WHERE gv.chromosome = '17';
+```
+
+### 7. Find All Samples Associated with a Specific Gene Expression Method
+
+```sql
+SELECT s.sample_name, ge.expression_level, ge.method
+FROM GENE_EXPRESSION ge
+JOIN SAMPLES s ON ge.sample_id = s.sample_id
+WHERE ge.method = 'RNA-seq';
+```
+
+### 8. Track All Sequencing Runs for a Specific Sample
+
+```sql
+SELECT sequence_id, sequence_data, alignment_status
+FROM SEQUENCES
+WHERE sample_id = 101;
+```
+
+### 9. Get Alignment Scores for a Specific Sequence and Its Reference Genome
+
+```sql
+SELECT a.alignment_score, a.alignment_type, a.reference_genome
+FROM ALIGNMENTS a
+JOIN SEQUENCES s ON a.sequence_id = s.sequence_id
+WHERE s.sequence_id = 301;
+```
+
+### 10. Get the Most Recent Metadata for a Specific Sample
+
+```sql
+SELECT key, value, timestamp
+FROM METADATA
+WHERE sample_id = 101
+ORDER BY timestamp DESC
+LIMIT 1;
+```
+
+### 11. Count the Number of Variants per Gene
+
+```sql
+SELECT g.gene_symbol, COUNT(v.variant_id) AS variant_count
+FROM GENES g
+JOIN GENE_VARIANTS v ON g.gene_id = v.gene_id
+GROUP BY g.gene_symbol;
+```
+
+### 12. Find All Genes with Variants of a Specific Type
+
+```sql
+SELECT g.gene_symbol, gv.variant_type
+FROM GENES g
+JOIN GENE_VARIANTS gv ON g.gene_id = gv.gene_id
+WHERE gv.variant_type = 'SNP';
+```
+
+### 13. Get Gene Expression Levels for Samples Collected After a Specific Date
+
+```sql
+SELECT s.sample_name, g.gene_symbol, ge.expression_level
+FROM GENE_EXPRESSION ge
+JOIN SAMPLES s ON ge.sample_id = s.sample_id
+JOIN GENES g ON ge.gene_id = g.gene_id
+WHERE s.collection_date > '2024-01-01';
+```
+
+### 14. Get the Total Number of Samples in Each Experiment
+
+```sql
+SELECT e.experiment_name, COUNT(s.sample_id) AS sample_count
+FROM EXPERIMENTS e
+JOIN SAMPLES s ON e.experiment_id = s.experiment_id
+GROUP BY e.experiment_name;
+```
+
+### 15. Track Gene Variants and Their Impact for All Samples in a Specific Experiment
+
+```sql
+SELECT e.experiment_name, s.sample_name, g.gene_symbol, gv.variant_type, gv.impact
+FROM EXPERIMENTS e
+JOIN SAMPLES s ON e.experiment_id = s.experiment_id
+JOIN GENE_VARIANTS gv ON s.sample_id = gv.sample_id
+JOIN GENES g ON gv.gene_id = g.gene_id
+WHERE e.experiment_id = 1;
+```
+
+### 16. Get Gene Expression for All Samples and Genes Across Different Methods
+
+```sql
+SELECT s.sample_name, g.gene_symbol, ge.method, ge.expression_level
+FROM GENE_EXPRESSION ge
+JOIN SAMPLES s ON ge.sample_id = s.sample_id
+JOIN GENES g ON ge.gene_id = g.gene_id;
+```
+
+### 17. Get the Average Gene Expression for a Specific Gene Across All Samples
+
+```sql
+SELECT g.gene_symbol, AVG(ge.expression_level) AS avg_expression
+FROM GENE_EXPRESSION ge
+JOIN GENES g ON ge.gene_id = g.gene_id
+GROUP BY g.gene_symbol;
+```
+
+### 18. Get the Total Number of Alignments for Sequences in a Specific Experiment
+
+```sql
+SELECT e.experiment_name, COUNT(a.alignment_id) AS alignment_count
+FROM EXPERIMENTS e
+JOIN SAMPLES s ON e.experiment_id = s.experiment_id
+JOIN SEQUENCES seq ON s.sample_id = seq.sample_id
+JOIN ALIGNMENTS a ON seq.sequence_id = a.sequence_id
+GROUP BY e.experiment_name;
+```
+
+### 19. List All Samples with Metadata Containing a Specific Key
+
+```sql
+SELECT s.sample_name, m.key, m.value
+FROM METADATA m
+JOIN SAMPLES s ON m.sample_id = s.sample_id
+WHERE m.key = 'batch_number';
+```
+
+### 20. Find All Genes with Expression Levels Greater Than a Specific Threshold in a Given Sample
+
+```sql
+SELECT g.gene_symbol, ge.expression_level
+FROM GENE_EXPRESSION ge
+JOIN GENES g ON ge.gene_id = g.gene_id
+WHERE ge.sample_id = 101 AND ge.expression_level > 5;
+```
+
