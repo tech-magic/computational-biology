@@ -1,6 +1,25 @@
 # Metabolomics Database Schema with Ayurvedic Principles
 
-## 1. Metabolomics Database Schema (Mermaid.js ER Diagram)
+## Introduction
+
+In Ayurveda, health is a state of perfect balance between three fundamental energies or **Doshas**:
+- **Vatha** (air + ether): governs movement (breathing, circulation, nerve impulses).
+- **Pitha** (fire + water): governs digestion, metabolism, and body temperature.
+- **Kapha** (water + earth): governs structure, immunity, and lubrication.
+
+Every person has a **unique balance** (Prakriti) of these Doshas.  
+**Disease happens when this natural balance is disturbed** due to diet, lifestyle, emotions, environment, or aging.
+
+> 🧐 **Key Principle**: Treat the imbalance, not just the symptoms.  
+> Restore the body’s natural self-healing capacity by bringing Doshas back into harmony.
+
+This is an attempt to design a relational database schema to store personalized metabolomics data and infer the personalized ayurvedic health profile for a given person.
+
+---
+
+# Designing a Suitable Relational Database Schema
+
+## 1. ER Diagram (Metabolomics + Ayurvedic Principles)
 
 ```mermaid
 erDiagram
@@ -233,5 +252,92 @@ elif dosha_list[0][1] > 30 and dosha_list[1][1] > 30 and abs(dosha_list[0][1] - 
     prakriti = f"{dosha_list[0][0]}-{dosha_list[1][0]} dual"
 else:
     prakriti = "Tridoshic (Vatha-Pitha-Kapha)"
+
+```
+
+# Time-series driven Personalized Prakriti Determination
+
+Below is an alternative approach for `Personalized Prakriti Determination` by maintaining historical vatha, pitha, kapha values per each person over time.
+
+#### Hypothetical Prakriti Rules
+
+| Condition                                                 | Interpretation         |
+|-----------------------------------------------------------|------------------------|
+| Highest dosha > 40% and second-highest difference > 10%   | Single Dosha Dominant  |
+| Two doshas > 30% and within 10% of each other             | Dual Dosha             |
+| Otherwise                                                 | Tridoshic (balanced)   |
+
+#### Example Python Code:
+
+```python
+
+def calculate_prakriti(time_series):
+    # time_series: List of [timestamp, vatha, pitha, kapha]
+
+    # Step 1: Organize by dosha
+    vatha_scores = [v for _, v, _, _ in time_series]
+    pitha_scores = [p for _, _, p, _ in time_series]
+    kapha_scores = [k for _, _, _, k in time_series]
+
+    # Step 2: Normalize
+    def normalize(values):
+        min_val, max_val = min(values), max(values)
+        if max_val == min_val:
+            return [0.5 for _ in values]  # Flat middle if no variation
+        return [(v - min_val) / (max_val - min_val) for v in values]
+
+    vatha_norm = normalize(vatha_scores)
+    pitha_norm = normalize(pitha_scores)
+    kapha_norm = normalize(kapha_scores)
+
+    # Step 3: Moving average (window=3)
+    def moving_average(values, window=3):
+        smoothed = []
+        for i in range(len(values)):
+            window_vals = values[max(0, i - window + 1):i + 1]
+            smoothed.append(sum(window_vals) / len(window_vals))
+        return smoothed
+
+    vatha_smooth = moving_average(vatha_norm)
+    pitha_smooth = moving_average(pitha_norm)
+    kapha_smooth = moving_average(kapha_norm)
+
+    # Step 4: Mean values
+    mean_vatha = sum(vatha_smooth) / len(vatha_smooth)
+    mean_pitha = sum(pitha_smooth) / len(pitha_smooth)
+    mean_kapha = sum(kapha_smooth) / len(kapha_smooth)
+
+    # Step 5: Calculate percentages
+    total = mean_vatha + mean_pitha + mean_kapha
+    percent_vatha = (mean_vatha / total) * 100
+    percent_pitha = (mean_pitha / total) * 100
+    percent_kapha = (mean_kapha / total) * 100
+
+    # Step 6: Decide Prakriti
+    prakriti = ""
+    dosha_list = sorted(
+        [('Vatha', percent_vatha), ('Pitha', percent_pitha), ('Kapha', percent_kapha)],
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    if dosha_list[0][1] > 40 and (dosha_list[0][1] - dosha_list[1][1]) > 10:
+        prakriti = f"{dosha_list[0][0]} dominant"
+    elif dosha_list[0][1] > 30 and dosha_list[1][1] > 30 and abs(dosha_list[0][1] - dosha_list[1][1]) < 10:
+        prakriti = f"{dosha_list[0][0]}-{dosha_list[1][0]} dual"
+    else:
+        prakriti = "Tridoshic (Vatha-Pitha-Kapha)"
+
+    return {
+        "mean_vatha": mean_vatha,
+        "mean_pitha": mean_pitha,
+        "mean_kapha": mean_kapha,
+        "prakriti_type": prakriti,
+        "percentages": {
+            "Vatha": percent_vatha,
+            "Pitha": percent_pitha,
+            "Kapha": percent_kapha
+        }
+    }
 
 ```
