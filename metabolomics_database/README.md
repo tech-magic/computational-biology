@@ -255,6 +255,8 @@ else:
 
 ```
 
+---
+
 # Time-series driven Personalized Prakriti Determination
 
 Below is an alternative approach for `Personalized Prakriti Determination` by maintaining historical vatha, pitha, kapha values per each person over time.
