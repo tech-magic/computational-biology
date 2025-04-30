@@ -17,7 +17,7 @@ This is an attempt to design a relational database schema to store personalized 
 
 ---
 
-# Designing a Suitable Relational Database Schema
+# Designing a suitable Relational Database Schema
 
 ## 1. ER Diagram (Metabolomics + Ayurvedic Principles)
 
