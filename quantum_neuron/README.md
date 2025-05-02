@@ -19,7 +19,7 @@ Understanding how signals are processed in classical computing, biological syste
 
 ---
 
-## Why is the Quantum Neuron is Closer to the Biological Neuron than the Turing Model?
+## Why is the Quantum Neuron Closer to the Biological Neuron (than the Turing Neuron)?
 
 - ✅ **Superposition simulates analog variability**  
   Like continuous biological signals, quantum superposition allows neurons to hold non-binary values.
