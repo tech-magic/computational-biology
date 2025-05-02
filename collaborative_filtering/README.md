@@ -102,8 +102,6 @@ Collaborative filtering:
 
 ---
 
----
-
 ## 🧬 Cross-Application: Collaborative Filtering in Genomics
 
 What if we took the same idea from movies and applied it to **dinosaurs**?  
@@ -136,67 +134,7 @@ Just like users rating movies, we treat:
 - **Gene positions as "items"**
 - **Nucleotide letters (A, C, G, T)** as "ratings"
 
-By comparing how similar fossils' genetic patterns are, we can **predict missing nucleotides**!
-
----
-
-### 🔄 How It Works
-
-1. **Identify Similar Specimens**  
-   If two fossils have similar sequences in the known regions, we assume they likely share similar unknown regions too.
-
-2. **Predict Missing Nucleotides**  
-   For a missing value, look at what **similar fossils** have at that position.  
-   Choose the **most likely nucleotide** (based on frequency, sequence similarity, and biological constraints).
-
-3. **Apply Constraints from Biology**  
-   DNA is structured:  
-   - A pairs with T  
-   - G pairs with C  
-   
-   This means **base pairing rules** can act like a filter to rule out biologically implausible predictions.
-
----
-
-### 📈 Example Prediction Strategy
-
-Let’s predict the missing nucleotide for **Specimen 3, Position 2**.
-
-- Look at other fossils that have **Position 2 = G**
-- Measure how similar they are to Specimen 3 based on nearby known positions
-- Predict **G** if enough similar fossils have it and it fits base-pairing context (e.g., if it complements a nearby C)
-
-Repeat across all fossils and positions!
-
----
-
-### 🧬 Why It Works
-
-Fossil DNA might be **incomplete**, but by:
-- Aligning all specimens
-- Using pattern similarity
-- Honoring biological rules
-
-...we can reconstruct plausible genetic sequences — **just like filling in a movie rating matrix**!
-
----
-
-### 💡 Bonus: Use Cases in Modern Genomics
-
-Collaborative filtering-style approaches are already used in:
-- **Imputation of missing genotypes** in large-scale genomic studies
-- **Reconstruction of ancient DNA** in paleogenomics
-- **Error correction in next-gen sequencing**
-
----
-
-Collaborative filtering isn't just for Netflix — it can help us **bring dinosaurs back to life... on paper!** 🧬🦕
-
----
-
-## 🧬 Visualizing Collaborative Filtering for Genomics
-
-Here's how collaborative filtering maps between a movie recommender system and Stegosaurus gene reconstruction:
+Here's how **collaborative filtering** maps between a **movie recommender system** and **Stegosaurus gene reconstruction**:
 
 ```mermaid
 graph TD
@@ -234,18 +172,58 @@ graph TD
 ```
 
 In both domains:
-- Entities (users/fossils) interact with items (movies/gene positions).
-- We use similarity across known data to predict the unknown.
+- **Entities** (users/fossils) **interact** with **items** (movies/gene positions).
+- We use **similarity** across known data to predict the unknown.
+
+---
+
+### 🔄 How It Works
+
+1. **Identify Similar Specimens**  
+   If two fossils have similar sequences in the known regions, we assume they likely share similar unknown regions too.
+
+2. **Predict Missing Nucleotides**  
+   For a missing value, look at what **similar fossils** have at that position.  
+   Choose the **most likely nucleotide** (based on frequency, sequence similarity, and biological constraints).
+
+3. **Apply Constraints from Biology**  
+   DNA is structured:  
+   - A pairs with T  
+   - G pairs with C  
+   
+   This means **base pairing rules** can act like a filter to rule out biologically implausible predictions.
+
+---
+
+### 🧬 Why It Works
+
+Fossil DNA might be **incomplete**, but by:
+- Aligning all specimens
+- Using pattern similarity
+- Honoring biological rules
+
+...we can reconstruct plausible genetic sequences — **just like filling in a movie rating matrix**!
 
 ---
 
 ## 🐍 Python Code for Genomic Collaborative Filtering
 
-`dino_dna_fixer.py` is a very basic illustration using Hamming similarity to fill in missing DNA bases.
+1. `dino_dna_fixer.py` is a very basic illustration using Hamming similarity to fill in missing DNA bases.
 In real genomics, you'd use more sophisticated models and alignment-aware techniques.
 
-After approximating all missing neucleotides with A, C, G, T — using `collaborative filtering` you could further refine these approximations by using biology specific rules such as:
-- Base-pairing validation
-- Biological context (codons, conserved regions)
-- Multiple sequence alignment techniques
+2. After approximating all missing neucleotides with A, C, G, and T using `collaborative filtering`; you could further re-correct these approximations by using biology specific rules such as:
+    - Base-pairing validation
+    - Biological context (codons, conserved regions)
+    - Multiple sequence alignment techniques
+
+---
+
+### 💡 Bonus: Use Cases in Modern Genomics
+
+Collaborative filtering-style approaches are already used in:
+- **Imputation of missing genotypes** in large-scale genomic studies
+- **Reconstruction of ancient DNA** in paleogenomics
+- **Error correction in next-gen sequencing**
+
+---
 
