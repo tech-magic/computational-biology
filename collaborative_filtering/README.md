@@ -102,7 +102,7 @@ Collaborative filtering:
 
 ---
 
-## 🧬 Cross-Application: Collaborative Filtering in Genomics
+# 🧬 Cross-Application: Collaborative Filtering in Genomics
 
 What if we took the same idea from movies and applied it to **dinosaurs**?  
 Specifically, to **Stegosaurus DNA** from fossil records?
