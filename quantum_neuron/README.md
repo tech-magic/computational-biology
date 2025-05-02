@@ -4,7 +4,7 @@ Understanding how signals are processed in classical computing, biological syste
 
 ## Neural Computation Models versus Actual: A Tabular Comparison
 
-| **Aspect**                   | **Von Neumann / Turing Machine Model**                          | **Biological Neuron**                                           | **Quantum Neuron Model**                                                                 |
+| **Aspect**                   | **Von Neumann (Turing) Neuron inside an ANN**                          | **Biological Neuron inside the Brain**                                           | **Quantum Neuron inside a QNN**                                                                 |
 |-----------------------------|------------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------------------------------|
 | **Signal Type**             | Binary (0 or 1)                                                 | Analog (continuous-valued signals)                               | Qubits in superposition (can represent both 0 and 1 simultaneously)                      |
 | **Signal Timing**           | Discrete, simultaneous processing after receiving full input set | Continuous, asynchronous — signals arrive at different times     | Asynchronous quantum evolution; no fixed timing required                                 |
@@ -49,9 +49,9 @@ Understanding how signals are processed in classical computing, biological syste
 
 ## Example Quantum Neuron (with IBM Qiskit)
 
-IBM Qiskit is an open-source quantum computing software development framework created by IBM. It allows researchers, developers, and enthusiasts to design, simulate, and run quantum algorithms on both simulators and real quantum hardware. Qiskit supports building quantum circuits with a high-level Python API and provides tools for quantum machine learning, optimization, and chemistry. It’s structured into modular components—Terra (core circuit building), Aer (simulators), Ignis (noise/error correction), and Aqua (applications)—making it a comprehensive toolkit for quantum application development.
+`IBM Qiskit` is an open-source quantum computing software development framework created by IBM. It allows researchers, developers, and enthusiasts to design, simulate, and run quantum algorithms on both simulators and real quantum hardware. Qiskit supports building quantum circuits with a high-level Python API and provides tools for quantum machine learning, optimization, and chemistry. It’s structured into modular components—Terra (core circuit building), Aer (simulators), Ignis (noise/error correction), and Aqua (applications)—making it a comprehensive toolkit for quantum application development.
 
-`quantum_neuron.py` is an example Python program (implemented using IBM Qiskit) that demonstrates all the biological neuron characteristics listed, using a Variational Quantum Circuit (VQC) framework with:
+`quantum_neuron.py` is an example `Python` program (implemented using `IBM Qiskit` and tested with `Python 3.10.16`) that demonstrates all the biological neuron characteristics listed, using a Variational Quantum Circuit (VQC) framework with:
 1. Superposition via Hadamard gates
 2. Entanglement via CNOT
 3. Parameterized inputs via feature maps
@@ -59,4 +59,4 @@ IBM Qiskit is an open-source quantum computing software development framework cr
 5. Probabilistic output via measurement
 6. Distributed architecture via entangled qubits
 
-<b>Note</b>: Make sure to use the given `requirements.txt` for running the program (IBM Qiskit Python libraries have some significant refactoring between different versions).
+<b>Note</b>: Make sure to use the given `requirements.txt` for running the program IBM Qiskit Python libraries have some significant refactoring between different versions).
