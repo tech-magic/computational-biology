@@ -90,7 +90,7 @@ Models Ayurvedic medicine personalization with CA logic.
 
 ---
 
-## ⚙️ 4. Cellular Automata with Agentic AI => `/agentic_cellular_automata`
+## 💥 4. Cellular Automata with Agentic AI => `/agentic_cellular_automata`
 Core logic and experiments to combine intelligent AI agent behaviors with cellular automata models leading to realistic biological behaviour by leveraging `emergence`.
 
 ---
@@ -100,7 +100,7 @@ An insightful discussion on why every biological system has a tightly coupled re
 
 ---
 
-## 🎯 6. Discovering Dino DNA => `/collaborative_filtering`
+## 🦕 6. Discovering Dino DNA => `/collaborative_filtering`
 An attempt to discover missing dinosaur DNA sequences by cross-application of collaborative filtering (inspired by recommender systems) to genomics.
 
 ---
@@ -110,7 +110,7 @@ An attempt to implement a relational DB schema for storing, retrieving, and mana
 
 ---
 
-## 💥 8. Personalized Metabolomics => `/metabolomics_database`
+## 🎯 8. Personalized Metabolomics => `/metabolomics_database`
 An attempt to implement a personalized metabolomics DB schema with Ayurvedic concepts for:
   - storing, retrieving, and managing metabolomics-related datasets
   - calculating the personalized Ayurvedic profile of each individual over time 
