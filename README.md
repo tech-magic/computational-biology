@@ -110,8 +110,8 @@ An attempt to implement a relational DB schema for storing, retrieving, and mana
 
 ---
 
-## 💥 8. Personalized Metabolomics DB Schema with Ayurveda (see folder `/metabolomics_database`)
-An attempt to implement a personalized metabolomics DB schema for:
+## 💥 8. Personalized Metabolomics (see folder `/metabolomics_database`)
+An attempt to implement a personalized metabolomics DB schema with Ayurvedic concepts for:
   - storing, retrieving, and managing metabolomics-related datasets
   - calculating the personalized Ayurvedic profile of each individual over time 
 
