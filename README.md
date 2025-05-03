@@ -28,7 +28,7 @@ Welcome to an integrated project exploring **computational biology**, **multi-om
 
 ---
 
-## 📚 1. Background (see folder `/background`)
+## 📚 1. Background => `/background`
 
 This section provides theoretical foundations and algorithmic guides for understanding computational biology.
 
@@ -47,7 +47,7 @@ This section provides theoretical foundations and algorithmic guides for underst
 
 ---
 
-## 🧬 2. Genomics Coding Problems (see folder `/genomics_coding_problems`)
+## 🧬 2. Genomics Coding Problems => `/genomics_coding_problems`
 
 Python scripts solving practical problems in genomics. Ideal for hands-on practice, assignments, or interviews.
 
@@ -66,7 +66,7 @@ Each file is self-contained and documented.
 
 ---
 
-## 🧪 3. Cellular Automata Applications (see folder `cellular_automata`)
+## 🧪 3. Cellular Automata Applications => `/cellular_automata`
 
 Using CA to simulate and model biological systems in various domains.
 
@@ -90,34 +90,34 @@ Models Ayurvedic medicine personalization with CA logic.
 
 ---
 
-## ⚙️ 4. Cellular Automata with Agentic AI (see folder `/agentic_cellular_automata`)
+## ⚙️ 4. Cellular Automata with Agentic AI => `/agentic_cellular_automata`
 Core logic and experiments to combine intelligent AI agent behaviors with cellular automata models leading to realistic biological behaviour by leveraging `emergence`.
 
 ---
 
-## 🧩 5. Biology versus the Exponential Constant (see folder `/biology_with_e`)
+## 🧩 5. Biology versus e => `/biology_with_e`
 An insightful discussion on why every biological system has a tightly coupled relationship with e (the exponential component).
 
 ---
 
-## 🎯 6. Discovering Dino DNA (see folder `/collaborative_filtering`)
+## 🎯 6. Discovering Dino DNA => `/collaborative_filtering`
 An attempt to discover missing dinosaur DNA sequences by cross-application of collaborative filtering (inspired by recommender systems) to genomics.
 
 ---
 
-## 🧬 7. Relational DB Schema for Genomics (see folder `/genomics_database`)
+## 🧬 7. Genomics DB => `/genomics_database`
 An attempt to implement a relational DB schema for storing, retrieving, and managing genomics-related datasets.
 
 ---
 
-## 💥 8. Personalized Metabolomics (see folder `/metabolomics_database`)
+## 💥 8. Personalized Metabolomics => `/metabolomics_database`
 An attempt to implement a personalized metabolomics DB schema with Ayurvedic concepts for:
   - storing, retrieving, and managing metabolomics-related datasets
   - calculating the personalized Ayurvedic profile of each individual over time 
 
 ---
 
-## 🔮 9. Quantum Neuron (see folder `/quantum_neuron`)
+## 🔮 9. Quantum Neuron => `/quantum_neuron`
 An attempt to implement a quantum neuron (by leveraging core concepts of quantum computing) to simulate the actual behaviour of a biological neuron (more realistic than the standard Turing neuron used in ANNs).
 
 ---
