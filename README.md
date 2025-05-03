@@ -14,9 +14,15 @@ Welcome to an integrated project exploring **computational biology**, **multi-om
 ## 📁 Project Structure
 
 ```
-├── background/                    # Theory and reference documents
+├── background/                   # Theory and reference documents
+├── agentic_cellular_automata/    # Building intelligent cellular automata with less effort with agentic AI
+├── biology_with_e/               # Relating e (the exponential constant) with biology
 ├── cellular_automata/            # CA-based simulations in bio systems
+├── collaborative_filtering/      # Recovering missing dinosaur DNA with collaborative filtering
 ├── genomics_coding_problems/     # Python-based coding challenges in genomics
+├── genomics_database/            # A relational DB schema for storing genomics and querying insights
+├── metabolomics_database/        # A relational DB schema for storing metabolomics data aligned with Ayurvedic concepts
+├── quantum_neuron/               # Modelling a biological neuron by using concepts from quantum computing
 └── README.md                     # You're here!
 ```
 
