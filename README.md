@@ -28,7 +28,7 @@ Welcome to an integrated project exploring **computational biology**, **multi-om
 
 ---
 
-## 📚 1. Background
+## 📚 1. Background (see folder `/background`)
 
 This section provides theoretical foundations and algorithmic guides for understanding computational biology.
 
@@ -47,7 +47,7 @@ This section provides theoretical foundations and algorithmic guides for underst
 
 ---
 
-## 🧬 2. Genomics Coding Problems
+## 🧬 2. Genomics Coding Problems (see folder `/genomics_coding_problems`)
 
 Python scripts solving practical problems in genomics. Ideal for hands-on practice, assignments, or interviews.
 
@@ -66,7 +66,7 @@ Each file is self-contained and documented.
 
 ---
 
-## 🧪 3. Cellular Automata Applications
+## 🧪 3. Cellular Automata Applications (see folder `cellular_automata`)
 
 Using CA to simulate and model biological systems in various domains.
 
@@ -87,6 +87,40 @@ Simulates nephron behavior using CA.
 Models Ayurvedic medicine personalization with CA logic.
 - `ayurvedic_ca.py`
 - `README.md`
+
+---
+
+## ⚙️ 4. Cellular Automata with Agentic AI (see folder `/agentic_cellular_automata`)
+Core logic and experiments to combine intelligent AI agent behaviors with cellular automata models leading to realistic biological behaviour by leveraging `emergence`.
+
+---
+
+## 🧩 5. Biology versus the Exponential Constant (see folder `/biology_with_e`)
+An insightful discussion on why every biological system has a tightly coupled relationship with e (the exponential component).
+
+---
+
+## 🎯 6. Discovering Dino DNA (see folder `/collaborative_filtering`)
+An attempt to discover missing dinosaur DNA sequences by cross-application of collaborative filtering (inspired by recommender systems) to genomics.
+
+---
+
+## 🧬 7. Relational DB Schema for Genomics (see folder `/genomics_database`)
+An attempt to implement a relational DB schema for storing, retrieving, and managing genomics-related datasets.
+
+---
+
+## 💥 8. Personalized Metabolomics DB Schema with Ayurveda (see folder `/metabolomics_database`)
+An attempt to implement a personalized metabolomics DB schema for:
+  - storing, retrieving, and managing metabolomics-related datasets
+  - calculating the personalized Ayurvedic profile of each individual over time 
+
+---
+
+## 🔮 9. Quantum Neuron (see folder `/quantum_neuron`)
+An attempt to implement a quantum neuron (by leveraging core concepts of quantum computing) to simulate the actual behaviour of a biological neuron (more realistic than the standard Turing neuron used in ANNs).
+
+---
 
 ## 📄 License
 
