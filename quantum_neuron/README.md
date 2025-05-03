@@ -59,4 +59,4 @@ Understanding how signals are processed in classical computing, biological syste
 5. Probabilistic output via measurement
 6. Distributed architecture via entangled qubits
 
-<b>Note</b>: Make sure to use the given `requirements.txt` for running the program IBM Qiskit Python libraries have some significant refactoring between different versions).
+> **Note**: Make sure to use the given `requirements.txt` for running the program (IBM Qiskit Python libraries have some significant refactoring between different versions).
