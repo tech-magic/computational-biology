@@ -4,7 +4,7 @@
 In biological systems, the rate of change is often **proportional to the current size** of the population or quantity.
 
 This relationship is modeled using a differential equation:
-$$ dy/dt = ky $$
+dy/dt = k * y
 
 Where:
 - `y(t)` is the quantity at time `t`,
