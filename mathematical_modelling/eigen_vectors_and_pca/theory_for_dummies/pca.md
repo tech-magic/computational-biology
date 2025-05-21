@@ -26,7 +26,7 @@ $$
   Z = X - mean(X)
 $$
 
-- \(Z\) is the standardized matrix of \(X\):
+- Z is the standardized matrix of X:
 $$
   Z \in \mathbb{R}^{10 \times 5}
 $$
@@ -51,8 +51,8 @@ $$
 
 You do the **same for each feature (column)**:
 
-- Compute mean \( \mu_2 \), subtract it from Feature 2.
-- Compute mean \( \mu_3 \), subtract it from Feature 3.
+- Compute mean $$ \mu_2 $$, subtract it from Feature 2.
+- Compute mean $$ \mu_3 $$, subtract it from Feature 3.
 - And so on…
 
 
