@@ -26,8 +26,8 @@ A collection of educational notes, models, and simulations focused on **differen
 ├── exponential_constant
 │   └── README.md
 └── food_web_simulation
-│   └── README.md
-│   └── food_web.py
+    └── README.md
+    └── food_web.py
 
 ```
 
