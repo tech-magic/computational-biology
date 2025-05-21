@@ -16,7 +16,7 @@ Welcome to an integrated project exploring **computational biology**, **multi-om
 ```
 ├── background/                   # Theory and reference documents
 ├── agentic_cellular_automata/    # Building intelligent cellular automata with less effort with agentic AI
-├── biology_with_e/               # Relating e (the exponential constant) with biology
+├── mathematical_modelling/       # Modelling biological systems with math concepts
 ├── cellular_automata/            # CA-based simulations in bio systems
 ├── collaborative_filtering/      # Recovering missing dinosaur DNA with collaborative filtering
 ├── genomics_coding_problems/     # Python-based coding challenges in genomics
@@ -95,8 +95,8 @@ Core logic and experiments to combine intelligent AI agent behaviors with cellul
 
 ---
 
-## 🧩 5. Biology versus e => `/biology_with_e`
-An insightful discussion on why every biological system has a tightly coupled relationship with e (the exponential component).
+## 🧩 5. Mathematical Modelling => `/mathematical_modelling`
+A insightful collection of educational notes, models, and simulations focused on differential equations, population dynamics, epidemics, eigenvectors, PCA, and ecological food webs.
 
 ---
 
