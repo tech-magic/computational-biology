@@ -61,12 +61,15 @@ graph TD
 
 Let:
 - Y<sub>i</sub>(t): Population of species *i* at time *t*  
-- r<sub>i</sub>: Intrinsic growth rate of species *i*  
-- K<sub>i</sub>(t): Carrying capacity of species *i* (time-dependent)  
+- r<sub>plants</sub>: Intrinsic growth rate of *plants*  
+- K<sub>plants</sub>(t): Carrying capacity of *plants* (time-dependent)
+- K<sub>max</sub>: Maximum Carrying capacity of *plants*   
 - d<sub>i</sub>: Natural death rate of species *i*  
 - α<sub>ij</sub>: Attack rate of predator *i* on prey *j*  
 - ε<sub>ij</sub>: Efficiency of converting consumed prey *j* to biomass for predator *i*  
-- A<sub>ij</sub> ∈ {0, 1}: Predation matrix; 1 if *i* preys on *j*  
+- A<sub>ij</sub> ∈ {0, 1}: Predation matrix; 1 if *i* preys on *j*
+  - *i* is the predator
+  - *j* is the prey 
 - R(t): Sunlight availability at time *t*  
 - δ(t): Drought factor  
   - δ(t) = 0.3 if 70 ≤ (t mod 100) ≤ 80,  
@@ -77,6 +80,19 @@ Let:
 
 **🦁➡️🦌 Predation Matrix (A)**
 ```python
+import numpy as np
+
+# Species and their indices
+species = [
+    "Plants", "Insects", "FruitBirds", "Deer", "Monkeys",
+    "Frogs", "Spiders", "WildCats", "LargeBirds", "Snakes",
+    "BigCats", "PredBirds", "Vultures", "Decomposers"
+]
+species_index = {name: i for i, name in enumerate(species)}
+
+# We have a total of 14 different species
+n = len(species)
+
 # Predator-prey edges
 edges = [
     ("Insects", "Plants"),
@@ -113,13 +129,13 @@ $$
 **🌱📈🌿 Plant Carrying Capacity**
 
 $$
-K_0(t) = K_{\text{max}} * \left(1 - e^{-\beta * R(t)}\right)
+K_\text{plants}(t) = K_{\text{max}} * \left(1 - e^{-\beta * R(t)}\right)
 $$
 
 **🌾🔄🌱 Plant Dynamics** (when $i = 0$):
 
 $$
-\frac{dY_0}{dt} = r_0 * Y_0 * \left(1 - \frac{Y_0}{K_0(t)}\right) * \delta(t) + \left(0.02 * Y_{13}\right) - \left(\sum_{j=1}^{n-1} A_{j0} * \alpha_{j0} * Y_j\right) * Y_0 - \left(d_0 * Y_0\right)
+\frac{dY_0}{dt} = r_\text{plants} * Y_0 * \left(1 - \frac{Y_0}{K_\text{plants}(t)}\right) * \delta(t) + \left(0.02 * Y_{13}\right) - \left(\sum_{j=1}^{n-1} A_{j0} * \alpha_{j0} * Y_j\right) * Y_0 - \left(d_0 * Y_0\right)
 $$
 
 **🐾🦌🦊 Other species** (when $i \ne 0, 13$):
