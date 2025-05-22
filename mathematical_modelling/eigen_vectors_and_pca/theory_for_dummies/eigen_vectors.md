@@ -1,7 +1,5 @@
 ## Eigenvectors
 
----
-
 ### Example 1: Eigenvectors of a 2×2 Matrix
 
 Let:
