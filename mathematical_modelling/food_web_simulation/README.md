@@ -47,15 +47,7 @@ graph TD
 
 - **Plant Growth**:
   - Modeled with logistic growth.
-  - Carrying capacity varies with seasonal sunlight using:
-
-$$
-R(t) = 100 + 50 \cdot \sin\left(\frac{2\pi t}{50}\right)
-$$
-
-$$
-K_{\text{plants}}(t) = K_{\text{max}} \cdot \left(1 - e^{-\beta R(t)}\right)
-$$
+  - Carrying capacity varies with seasonal sunlight.
 
 - **Decomposers**:
   - Increase by feeding on natural deaths of all other species.
@@ -65,7 +57,7 @@ $$
   - **Droughts** reduce plant growth every 70–80 time units.
   - **Hunting** reduces predator populations every 150–160 time units.
 
-# Forest Food Web Differential Equations
+## 🧮 Math Equations
 
 Let:
 
@@ -84,50 +76,42 @@ Let:
   - η(t) = 0.5 if 150 ≤ (t mod 200) ≤ 160 and *i* ∈ {BigCats, PredBirds},  
   - else η(t) = 1.0
 
-
----
-
-### Sunlight Function and Plant Carrying Capacity
+**Seasonal Sunlight**
 
 $$
 R(t) = 100 + 50 * \sin\left(\frac{2 * \pi * t}{50}\right)
 $$
 
+**Plant Carrying Capacity**
+
 $$
 K_0(t) = K_{\text{max}} * \left(1 - e^{-\beta * R(t)}\right)
 $$
 
----
-
-### Species Dynamics
-
-**Plants ($i = 0$):**
+**Plant Dynamics** (when $i = 0$):
 
 $$
 \frac{dY_0}{dt} = r_0 * Y_0 * \left(1 - \frac{Y_0}{K_0(t)}\right) * \delta(t) + \left(0.02 * Y_{13}\right) - \left(\sum_{j=1}^{n-1} A_{j0} * \alpha_{j0} * Y_j\right) * Y_0 - \left(d_0 * Y_0\right)
 $$
 
-**Other species ($i \ne 0, 13$):**
+**Other species** (when $i \ne 0, 13$):
 
 $$
 \frac{dY_i}{dt} = \left(\sum_{j=0}^{n-1} A_{ij} * \alpha_{ij} * Y_j * \epsilon_{ij}\right) * Y_i - \left(\sum_{j=0}^{n-1} * A_{ji} * \alpha_{ji} * Y_j\right) * Y_i - \left(d_i * Y_i\right)
 $$
 
-**Decomposers ($i = 13$):**
+**Decomposers** (when $i = 13$):
 
 $$
 \frac{dY_{13}}{dt} = 0.05 * \left(\sum_{\substack{j=0 \\ j \ne 13}}^{n-1} d_j * Y_j\right) - \left(d_{13} * Y_{13}\right)
 $$
 
-
----
-
-### Hunting Adjustment
+**Hunting Adjustment**
 
 For \( i \in \{\text{BigCats}, \text{PredBirds}\} \), apply hunting factor:
 
 $$
-\frac{dY_i}{dt} \leftarrow \frac{dY_i}{dt} \cdot \eta(t)
+\frac{dY_i}{dt} \leftarrow \frac{dY_i}{dt} * \eta(t)
 $$
 
 
