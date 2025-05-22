@@ -27,6 +27,7 @@ $$
 $$
 
 - Z is the standardized matrix of X:
+
 $$
   Z \in \mathbb{R}^{10 \times 5}
 $$
@@ -43,7 +44,7 @@ $$
 
 Then you subtract this mean from each value in the first column.
 
-So the **new centered values** for Feature 1 will be:
+So the **new centered values** for **Feature 1** will be:
 
 $$
 z_{i1} = x_{i1} - \mu_1 \quad \text{for all } i = 1 \text{ to } 10
@@ -51,8 +52,22 @@ $$
 
 You do the **same for each feature (column)**:
 
-- Compute mean $$ \mu_2 $$, subtract it from Feature 2.
-- Compute mean $$ \mu_3 $$, subtract it from Feature 3.
+- Compute mean:
+
+$$ 
+\mu_2 
+$$
+
+, for **Feature 2** and subtract it from each value of **Feature 2**.
+
+- Compute mean:
+
+$$ 
+\mu_3 
+$$
+
+, for **Feature 3** and subtract it from each value of **Feature 3**.
+
 - And so on…
 
 
@@ -62,17 +77,25 @@ $$
 C = \frac{1}{n - 1} * Z^T * Z
 $$
 
-- \(Z^T\) is the transposed matrix of \(Z\):  
-  \[
-  Z^T \in \mathbb{R}^{5 \times 10}
-  \]
+$$
+Z^T \text{ is the transposed matrix of } Z
+$$
 
-- \(C\) is the covariance matrix of \(Z\):  
-  \[
-  C \in \mathbb{R}^{5 \times 5}
-  \]
+$$
+\text{ ( } Z^T \in \mathbb{R}^{5 \times 10} \text{ ) }
+$$
 
-- \(n\) is the number of samples (i.e., rows in \(X\) which is 10 in this case)
+$$
+C \text{ is the covariance matrix of } Z
+$$
+
+$$
+\text{ ( } C \in \mathbb{R}^{5 \times 5} \text { ) }
+$$
+
+$$
+n \text{ is the number of samples (i.e., rows in } X \text{ which is 10 in this case) }
+$$
 
 #### Step 3: Eigen Decomposition
 
@@ -83,15 +106,17 @@ Eigenvalues: λ1 ≥ λ2 ≥ λ3 ≥ λ4 ≥ λ5
 Eigenvectors: v1, v2, v3, v4, v5
 ```
 
-- \(v1\) is the corresponding eigenvector (a column vector) for \(λ1\):  
-  $$
-  v1 \in \mathbb{R}^{5 \times 1}
-  $$
+- v1 is the corresponding eigenvector (a column vector) for λ<sub>1</sub>:
 
-- \(v2\) is the corresponding eigenvector (a column vector) for \(λ2\):  
-  $$
+$$
+  v1 \in \mathbb{R}^{5 \times 1}
+$$
+
+- v2 is the corresponding eigenvector (a column vector) for λ<sub>2</sub>:  
+
+$$
   v2 \in \mathbb{R}^{5 \times 1}
-  $$
+$$
 
 - And so on...
 
@@ -101,37 +126,43 @@ Eigenvectors: v1, v2, v3, v4, v5
 W = [v1 v2 v3]  // 5x3 matrix
 ```
 
-- \(v1\) is the top-1st eigenvector (a column vector):  
-  $$
+- v<sub>1</sub> is the top-1st eigenvector (a column vector):
+
+$$
   v1 \in \mathbb{R}^{5 \times 1}
-  $$
+$$
 
-- \(v2\) is the top-2nd eigenvector (a column vector):  
-  $$
+- v<sub>2</sub> is the top-2nd eigenvector (a column vector):
+ 
+$$
   v2 \in \mathbb{R}^{5 \times 1}
-  $$
+$$
 
-- \(v3\) is the top-3rd eigenvector (a column vector):  
-  $$
+- v<sub>3</sub> is the top-3rd eigenvector (a column vector):
+
+$$
   v3 \in \mathbb{R}^{5 \times 1}
-  $$
+$$
 
-- \(W\) represents the top-3 eigenvectors:  
-  $$
+- W represents the top-3 eigenvectors:
+
+$$
   W \in \mathbb{R}^{5 \times 3}
-  $$
+$$
 
 #### Step 5: Project Original Data
 
-\[
-Z\_proj = Z * W
-\]
+$$
+Z\_\text{proj} = Z * W
+$$
 
-Now, \[Z\_proj\] contains data projected onto the top 3 most important directions (derived from 3 most important features).
-\[
-  Z\_proj \in \mathbb{R}^{10 \times 3}
-\]
+$$
+\text{ Now, } Z\_\text{proj} \text{ contains data projected onto the top 3 most important directions (derived from 3 most important features). }
+$$
 
+$$
+  Z\_\text{proj} \in \mathbb{R}^{10 \times 3}
+$$
 
 #### 🎯 Summary
 
