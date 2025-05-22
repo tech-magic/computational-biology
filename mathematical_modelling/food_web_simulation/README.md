@@ -47,10 +47,12 @@ graph TD
 
 - **Plant Growth**:
   - Modeled with logistic growth.
-  - Carrying capacity varies with seasonal sunlight using:  
+  - Carrying capacity varies with seasonal sunlight using:
+
 $$
 R(t) = 100 + 50 \cdot \sin\left(\frac{2\pi t}{50}\right)
 $$
+
 $$
 K_{\text{plants}}(t) = K_{\text{max}} \cdot \left(1 - e^{-\beta R(t)}\right)
 $$
