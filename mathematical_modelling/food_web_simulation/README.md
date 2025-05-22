@@ -60,7 +60,6 @@ graph TD
 ## 🧮 Math Equations
 
 Let:
-
 - Y<sub>i</sub>(t): Population of species *i* at time *t*  
 - r<sub>i</sub>: Intrinsic growth rate of species *i*  
 - K<sub>i</sub>(t): Carrying capacity of species *i* (time-dependent)  
@@ -76,42 +75,44 @@ Let:
   - η(t) = 0.5 if 150 ≤ (t mod 200) ≤ 160 and *i* ∈ {BigCats, PredBirds},  
   - else η(t) = 1.0
 
-**Seasonal Sunlight**
+**☀️🌦️🍂 Seasonal Sunlight**
 
 $$
 R(t) = 100 + 50 * \sin\left(\frac{2 * \pi * t}{50}\right)
 $$
 
-**Plant Carrying Capacity**
+**🌱📈🌿 Plant Carrying Capacity**
 
 $$
 K_0(t) = K_{\text{max}} * \left(1 - e^{-\beta * R(t)}\right)
 $$
 
-**Plant Dynamics** (when $i = 0$):
+**🌾🔄🌱 Plant Dynamics** (when $i = 0$):
 
 $$
 \frac{dY_0}{dt} = r_0 * Y_0 * \left(1 - \frac{Y_0}{K_0(t)}\right) * \delta(t) + \left(0.02 * Y_{13}\right) - \left(\sum_{j=1}^{n-1} A_{j0} * \alpha_{j0} * Y_j\right) * Y_0 - \left(d_0 * Y_0\right)
 $$
 
-**Other species** (when $i \ne 0, 13$):
+**🐾🦌🦊 Other species** (when $i \ne 0, 13$):
 
 $$
 \frac{dY_i}{dt} = \left(\sum_{j=0}^{n-1} A_{ij} * \alpha_{ij} * Y_j * \epsilon_{ij}\right) * Y_i - \left(\sum_{j=0}^{n-1} * A_{ji} * \alpha_{ji} * Y_j\right) * Y_i - \left(d_i * Y_i\right)
 $$
 
-**Decomposers** (when $i = 13$):
+**🍄🪱🧫 Decomposers** (when $i = 13$):
 
 $$
 \frac{dY_{13}}{dt} = 0.05 * \left(\sum_{\substack{j=0 \\ j \ne 13}}^{n-1} d_j * Y_j\right) - \left(d_{13} * Y_{13}\right)
 $$
 
-**Hunting Adjustment**
-
-For \( i \in \{\text{BigCats}, \text{PredBirds}\} \), apply hunting factor:
+**🏹🐺📉 Hunting Adjustment**
 
 $$
-\frac{dY_i}{dt} \leftarrow \frac{dY_i}{dt} * \eta(t)
+\text{when } \left( i \in \text{BigCats} \right) OR \left( i \in \text{PredBirds} \right)
+$$
+
+$$
+\hspace{3cm} \text{apply hunting factor } \rightarrow \text{ } \frac{dY_i}{dt} = \frac{dY_i}{dt} * \eta(t)
 $$
 
 
