@@ -75,6 +75,35 @@ Let:
   - η(t) = 0.5 if 150 ≤ (t mod 200) ≤ 160 and *i* ∈ {BigCats, PredBirds},  
   - else η(t) = 1.0
 
+**🦁➡️🦌 Predation Matrix (A)**
+```python
+# Predator-prey edges
+edges = [
+    ("Insects", "Plants"),
+    ("FruitBirds", "Plants"),
+    ("Deer", "Plants"),
+    ("Monkeys", "Plants"),
+    ("Frogs", "Insects"),
+    ("Spiders", "Insects"),
+    ("WildCats", "Deer"),
+    ("LargeBirds", "Monkeys"),
+    ("Snakes", "Frogs"),
+    ("Snakes", "Spiders"),
+    ("PredBirds", "Snakes"),
+    ("BigCats", "WildCats"),
+    ("BigCats", "LargeBirds"),
+    ("BigCats", "Snakes"),
+    ("BigCats", "PredBirds"),
+    ("Vultures", "BigCats")
+]
+
+# Predation matrix
+predation_matrix = np.zeros((n, n))  # [predator][prey]
+for predator, prey in edges:
+    i, j = species_index[predator], species_index[prey]
+    predation_matrix[i, j] = 1
+```
+
 **☀️🌦️🍂 Seasonal Sunlight**
 
 $$
