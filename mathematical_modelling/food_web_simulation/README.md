@@ -126,11 +126,24 @@ $$
 R(t) = 100 + 50 * \sin\left(\frac{2 * \pi * t}{50}\right)
 $$
 
+- Simulates seasonal variation in sunlight.
+- Models sunlight intensity R(t) as a sinusoidal function (periodic with time t).
+- It cycles every 50 time units (e.g., days, weeks).
+- Sunlight ranges between 50 and 150:
+  - min: 100 − 50 = 50
+  - max: 100 + 50 = 150
+
 **🌱📈🌿 Plant Carrying Capacity**
 
 $$
 K_\text{plants}(t) = K_{\text{max}} * \left(1 - e^{-\beta * R(t)}\right)
 $$
+
+- Plants can grow more when there's more sunlight, but only up to a limit.
+- Models dynamic carrying capacity based on current sunlight R.
+- Follows a saturating exponential curve:
+  - When R is small: K<sub>plants</sub> is small.
+  - As R increases, 𝐾<sub>plants</sub> → 𝐾<sub>max</sub>
 
 **🌾🔄🌱 Plant Dynamics** (when $i = 0$):
 
