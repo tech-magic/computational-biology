@@ -43,42 +43,95 @@ graph TD
 - **Top Predators**: BigCats, PredBirds  
 - **Scavengers/Decomposers**: Vultures, Decomposers
 
-## 📊 Model Highlights
+## 📖 Essential Definitions
 
-- **Plant Growth**:
-  - Modeled with logistic growth.
-  - Carrying capacity varies with seasonal sunlight.
+**🌿🐾🍄 Species**
+```
+species = [
+    "🌿 Plants",
+    "🐞 Insects",
+    "🕊️ FruitBirds",
+    "🦌 Deer",
+    "🐒 Monkeys",
+    "🐸 Frogs",
+    "🕷️ Spiders",
+    "🐆 WildCats",
+    "🦃 LargeBirds",
+    "🐍 Snakes",
+    "🦁 BigCats",
+    "🦅 PredBirds",
+    "🦤 Vultures",
+    "🍄 Decomposers"
+]
+```
 
-- **Decomposers**:
-  - Increase by feeding on natural deaths of all other species.
-  - Provide nutrient recycling feedback to boost plant growth.
+**🌿🐾🍄 Species Index** (i)
 
-- **Ecological Shocks**:
-  - **Droughts** reduce plant growth every 70–80 time units.
-  - **Hunting** reduces predator populations every 150–160 time units.
+| Index (i) | Species               |
+|-------|------------------------|
+| 0     | 🌿 Plants              |
+| 1     | 🐞 Insects             |
+| 2     | 🕊️ FruitBirds         |
+| 3     | 🦌 Deer                |
+| 4     | 🐒 Monkeys             |
+| 5     | 🐸 Frogs               |
+| 6     | 🕷️ Spiders            |
+| 7     | 🐆 WildCats            |
+| 8     | 🦃 LargeBirds          |
+| 9     | 🐍 Snakes              |
+| 10    | 🦁 BigCats             |
+| 11    | 🦅 PredBirds           |
+| 12    | 🦤 Vultures            |
+| 13    | 🍄 Decomposers         |
 
-## 🧮 Math Equations
+**🦁➡️🦌 {Predator -> Prey} Edges (extracted from the Food Web)**
 
-Let:
-- Y<sub>i</sub>(t): Population of species *i* at time *t*  
-- r<sub>plants</sub>: Intrinsic growth rate of *plants*  
-- K<sub>plants</sub>(t): Carrying capacity of *plants* (time-dependent)
-- K<sub>max</sub>: Maximum Carrying capacity of *plants*   
-- d<sub>i</sub>: Natural death rate of species *i*  
-- α<sub>ij</sub>: Attack rate of predator *i* on prey *j*  
-- ε<sub>ij</sub>: Efficiency of converting consumed prey *j* to biomass for predator *i*  
-- A<sub>ij</sub> ∈ {0, 1}: Predation matrix; 1 if *i* preys on *j*
-  - *i* is the predator
-  - *j* is the prey 
-- R(t): Sunlight availability at time *t*  
-- δ(t): Drought factor  
-  - δ(t) = 0.3 if 70 ≤ (t mod 100) ≤ 80,  
-  - else δ(t) = 1.0  
-- η(t): Hunting factor  
-  - η(t) = 0.5 if 150 ≤ (t mod 200) ≤ 160 and *i* ∈ {BigCats, PredBirds},  
-  - else η(t) = 1.0
+| Predator         |   ➡️   | Prey           |
+|------------------|:-----:|----------------|
+| 🐞 Insects        |  ➡️   | 🌿 Plants       |
+| 🕊️ FruitBirds     |  ➡️   | 🌿 Plants       |
+| 🦌 Deer           |  ➡️   | 🌿 Plants       |
+| 🐒 Monkeys        |  ➡️   | 🌿 Plants       |
+| 🐸 Frogs          |  ➡️   | 🐞 Insects      |
+| 🕷️ Spiders        |  ➡️   | 🐞 Insects      |
+| 🐆 WildCats       |  ➡️   | 🦌 Deer         |
+| 🦃 LargeBirds     |  ➡️   | 🐒 Monkeys      |
+| 🐍 Snakes         |  ➡️   | 🐸 Frogs        |
+| 🐍 Snakes         |  ➡️   | 🕷️ Spiders      |
+| 🦅 PredBirds      |  ➡️   | 🐍 Snakes       |
+| 🦁 BigCats        |  ➡️   | 🐆 WildCats     |
+| 🦁 BigCats        |  ➡️   | 🦃 LargeBirds   |
+| 🦁 BigCats        |  ➡️   | 🐍 Snakes       |
+| 🦁 BigCats        |  ➡️   | 🦅 PredBirds    |
+| 🦤 Vultures       |  ➡️   | 🦁 BigCats      |
 
-**🦁➡️🦌 Predation Matrix (A)**
+**🦁🔢🦌 Predation Matrix (A)**
+
+- The <i>Predation Matrix</i> **A** is derived from the collection of **{Predator -> Prey} Edges**  
+- Each row in the <i>Predation Matrix</i> **A** represents a **🦁Predator**.
+- <i>Row index</i> is denoted by **x**; where **x** ∈ **i**.
+- Each column in the <i>Predation Matrix</i> **A** represents a **🦌Prey**.
+- <i>Column index</i> is denoted by **y**; where **y** ∈ **i**.
+- Recall that **i** is the **Species Index** with integer values **from 0 to 13**.
+
+| #  | Species             | 0 🌿 Plants | 1 🐞 Insects | 2 🕊️ FruitBirds | 3 🦌 Deer | 4 🐒 Monkeys | 5 🐸 Frogs | 6 🕷️ Spiders | 7 🐆 WildCats | 8 🦃 LargeBirds | 9 🐍 Snakes | 10 🦁 BigCats | 11 🦅 PredBirds | 12 🦤 Vultures | 13 🍄 Decomposers |
+|----|---------------------|-------------|--------------|------------------|-----------|--------------|------------|---------------|----------------|----------------|--------------|----------------|----------------|----------------|--------------------|
+| 0  | 🌿 Plants           | ⬜ 0        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 1  | 🐞 Insects          | ✅ 1        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 2  | 🕊️ FruitBirds       | ✅ 1        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 3  | 🦌 Deer             | ✅ 1        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 4  | 🐒 Monkeys          | ✅ 1        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 5  | 🐸 Frogs            | ⬜ 0        | ✅ 1         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 6  | 🕷️ Spiders          | ⬜ 0        | ✅ 1         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 7  | 🐆 WildCats         | ⬜ 0        | ⬜ 0         | ⬜ 0             | ✅ 1      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 8  | 🦃 LargeBirds       | ⬜ 0        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ✅ 1         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 9  | 🐍 Snakes           | ⬜ 0        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ✅ 1       | ✅ 1          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 10 | 🦁 BigCats          | ⬜ 0        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ✅ 1           | ✅ 1           | ✅ 1         | ⬜ 0           | ✅ 1           | ⬜ 0           | ⬜ 0                 |
+| 11 | 🦅 PredBirds        | ⬜ 0        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ✅ 1         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 12 | 🦤 Vultures         | ⬜ 0        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ✅ 1           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+| 13 | 🍄 Decomposers      | ⬜ 0        | ⬜ 0         | ⬜ 0             | ⬜ 0      | ⬜ 0         | ⬜ 0       | ⬜ 0          | ⬜ 0           | ⬜ 0           | ⬜ 0         | ⬜ 0           | ⬜ 0           | ⬜ 0           | ⬜ 0                 |
+
+**🧩🐍🛠️ Putting it Altogether in Python**
 ```python
 import numpy as np
 
@@ -116,9 +169,45 @@ edges = [
 # Predation matrix
 predation_matrix = np.zeros((n, n))  # [predator][prey]
 for predator, prey in edges:
-    i, j = species_index[predator], species_index[prey]
-    predation_matrix[i, j] = 1
+    x, y = species_index[predator], species_index[prey]
+    predation_matrix[x, y] = 1
 ```
+
+
+## 📊 Model Highlights
+
+- **Plant Growth**:
+  - Modeled with logistic growth.
+  - Carrying capacity varies with seasonal sunlight.
+
+- **Decomposers**:
+  - Increase by feeding on natural deaths of all other species.
+  - Provide nutrient recycling feedback to boost plant growth.
+
+- **Ecological Shocks**:
+  - **Droughts** reduce plant growth every 70–80 time units.
+  - **Hunting** reduces predator populations every 150–160 time units.
+
+## 🧮 Math Equations
+
+Let:
+- Y<sub>i</sub>(t): Population of species *i* at time *t*  
+- r<sub>plants</sub>: Intrinsic growth rate of *plants*  
+- K<sub>plants</sub>(t): Carrying capacity of *plants* (time-dependent)
+- K<sub>max</sub>: Maximum Carrying capacity of *plants*   
+- d<sub>i</sub>: Natural death rate of species *i*  
+- α<sub>ij</sub>: Attack rate of predator *i* on prey *j*  
+- ε<sub>ij</sub>: Efficiency of converting consumed prey *j* to biomass for predator *i*  
+- A<sub>ij</sub> ∈ {0, 1}: Predation matrix; 1 if *i* preys on *j*
+  - *i* is the predator
+  - *j* is the prey 
+- R(t): Sunlight availability at time *t*  
+- δ(t): Drought factor  
+  - δ(t) = 0.3 if 70 ≤ (t mod 100) ≤ 80,  
+  - else δ(t) = 1.0  
+- η(t): Hunting factor  
+  - η(t) = 0.5 if 150 ≤ (t mod 200) ≤ 160 and *i* ∈ {BigCats, PredBirds},  
+  - else η(t) = 1.0
 
 **☀️🌦️🍂 Seasonal Sunlight**
 
