@@ -37,20 +37,22 @@ edges = [
 # Predation matrix
 predation_matrix = np.zeros((n, n))  # [predator][prey]
 for predator, prey in edges:
-    i, j = species_index[predator], species_index[prey]
-    predation_matrix[i, j] = 1
+    x, y = species_index[predator], species_index[prey]
+    predation_matrix[x, y] = 1
 
-# Parameters
-growth_rate = np.zeros(n)
-carrying_capacity = np.zeros(n)
+# Common Parameters
 death_rate = 0.1 * np.ones(n)
 efficiency = 0.1 * np.ones((n, n))
 attack_rate = 0.01 * np.ones((n, n))
 
-# Plants grow naturally
-growth_rate[species_index["Plants"]] = 0.5
+# Plants specific Parameters
+plant_growth_rate = 0.5
 K_max = 1000
 beta = 0.01
+nutrient_uptake_rate = 0.02
+
+# Decomposer specific Parameters
+decomposition_rate = 0.05
 
 # Seasonal sunlight function
 def R_t(t):
@@ -63,8 +65,6 @@ def K_plants(R):
 def food_web_extended(Y, t):
     dYdt = np.zeros(n)
     Rt = R_t(t)
-    K = np.copy(carrying_capacity)
-    K[species_index["Plants"]] = K_plants(Rt)
 
     # Drought shock every 70–80 units
     drought_factor = 0.3 if 70 <= (t % 100) <= 80 else 1.0
@@ -75,8 +75,8 @@ def food_web_extended(Y, t):
     for i in range(n):
         # Plants: logistic growth + decomposer boost
         if i == species_index["Plants"]:
-            dYdt[i] += growth_rate[i] * Y[i] * (1 - Y[i] / K[i]) * drought_factor
-            dYdt[i] += 0.02 * Y[species_index["Decomposers"]]  # nutrient recycling
+            dYdt[i] += plant_growth_rate * Y[i] * (1 - Y[i] / K_plants(Rt)) * drought_factor
+            dYdt[i] += nutrient_uptake_rate * Y[species_index["Decomposers"]]  # nutrient recycling
 
         # Gains from prey and prey losses
         for j in range(n):
@@ -93,7 +93,7 @@ def food_web_extended(Y, t):
         # Decomposers grow from all dead matter
         if i == species_index["Decomposers"]:
             total_dead = sum(death_rate[j] * Y[j] for j in range(n) if j != i)
-            dYdt[i] += 0.05 * total_dead - natural_death
+            dYdt[i] += decomposition_rate * total_dead - natural_death
 
         # Apply hunting to top predators
         if species[i] in ["BigCats", "PredBirds"]:
