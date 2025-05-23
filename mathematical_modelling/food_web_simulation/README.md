@@ -190,10 +190,12 @@ for predator, prey in edges:
 
 ## 🧮 Math Equations
 
-Let:
+✍️ Let:
 - Y<sub>i</sub>(t): Population of species *i* at time *t*  
 - r<sub>plants</sub>: Intrinsic growth rate of *plants*
-- K<sub>max</sub>: Maximum Carrying capacity of *plants*   
+- κ<sub>max</sub>: Maximum Carrying capacity of *plants*
+- κ<sub>d</sub>: Decomposition rate by *decomposers*
+- κ<sub>p</sub>: Nutrient uptake rate by *plants*
 - d<sub>i</sub>: Natural death rate of species *i*
 - A<sub>xy</sub> ∈ {0, 1}: Predation matrix; 1 if *x* preys on *y*
   - *x* is the predator
@@ -214,10 +216,10 @@ $$
   - min: 100 − 50 = 50
   - max: 100 + 50 = 150
 
-### 🌱📈🌿 K<sub>plants</sub>(t): Plant Carrying Capacity
+### 🌱📈🌿 κ<sub>plants</sub>(t): Plant Carrying Capacity
 
 $$
-K_\text{plants}(t) = K_{\text{max}} * \left(1 - e^{-\beta * R(t)}\right)
+κ_\text{plants}(t) = κ_{\text{max}} * \left(1 - e^{-\beta * R(t)}\right)
 $$
 
 - Plants can grow more when there's more sunlight, but only up to a limit.
@@ -225,8 +227,9 @@ $$
 - Follows a saturating exponential curve:
   - When R is small: K<sub>plants</sub> is small.
   - As R increases, 𝐾<sub>plants</sub> → 𝐾<sub>max</sub>
+- β is a smoothing factor for simulating a continuous transition during plant growth or decline (0 < β < 1)
 
-### 🌵 δ(t): Drought Factor
+### 🌵☀️💧🚫 δ(t): Drought Factor
 
 This factor simulates periods of drought and affects plant growth.
 
@@ -256,7 +259,7 @@ This factor simulates external (e.g. human) hunting pressure, but **only** on to
 ### 🌾🔄🌱 [ dY<sub>0</sub>(t) / dt ]: Plant Dynamics (when $i = 0$):
 
 $$
-\frac{dY_0(t)}{dt} = r_\text{plants} * Y_0(t) * \left(1 - \frac{Y_0(t)}{K_\text{plants}(t)}\right) * \delta(t) + \left(0.02 * Y_{13}(t)\right) - \left(\sum_{x=1}^{n-1} A_{x0} * \alpha_{x0} * Y_x(t)\right) * Y_0(t) - \left(d_0 * Y_0(t)\right)
+\frac{dY_0(t)}{dt} = r_\text{plants} * Y_0(t) * \left(1 - \frac{Y_0(t)}{κ_\text{plants}(t)}\right) * \delta(t) + \left(κ_p * Y_{13}(t)\right) - \left(\sum_{x=1}^{n-1} A_{x0} * \alpha_{x0} * Y_x(t)\right) * Y_0(t) - \left(d_0 * Y_0(t)\right)
 $$
 
 ### 🐾🦌🦊 [ dY<sub>i</sub>(t) / dt ]: Other species (when $i \ne 0, 13$):
@@ -278,7 +281,7 @@ $$
 ### 🍄🪱🧫 [ dY<sub>13</sub>(t) / dt ]: Decomposers (when $i = 13$):
 
 $$
-\frac{dY_{13}(t)}{dt} = 0.05 * \left(\sum_{\substack{j=0 \\ j \ne 13}}^{n-1} d_j * Y_j(t)\right) - \left(d_{13} * Y_{13}(t)\right)
+\frac{dY_{13}(t)}{dt} = κ_d * \left(\sum_{\substack{j=0 \\ j \ne 13}}^{n-1} d_j * Y_j(t)\right) - \left(d_{13} * Y_{13}(t)\right)
 $$
 
 
