@@ -192,24 +192,16 @@ for predator, prey in edges:
 
 Let:
 - Y<sub>i</sub>(t): Population of species *i* at time *t*  
-- r<sub>plants</sub>: Intrinsic growth rate of *plants*  
-- K<sub>plants</sub>(t): Carrying capacity of *plants* (time-dependent)
+- r<sub>plants</sub>: Intrinsic growth rate of *plants*
 - K<sub>max</sub>: Maximum Carrying capacity of *plants*   
 - d<sub>i</sub>: Natural death rate of species *i*
 - A<sub>xy</sub> ∈ {0, 1}: Predation matrix; 1 if *x* preys on *y*
   - *x* is the predator
   - *y* is the prey
 - α<sub>xy</sub>: Attack rate of predator *x* on prey *y*  
-- ε<sub>xy</sub>: Efficiency of converting consumed prey *x* to biomass for predator *y*  
-- R(t): Sunlight availability at time *t*  
-- δ(t): Drought factor  
-  - δ(t) = 0.3 if 70 ≤ (t mod 100) ≤ 80,  
-  - else δ(t) = 1.0  
-- η(t): Hunting factor  
-  - η(t) = 0.5 if 150 ≤ (t mod 200) ≤ 160 and *i* ∈ {BigCats, PredBirds},  
-  - else η(t) = 1.0
+- ε<sub>xy</sub>: Efficiency of converting consumed prey *y* to biomass for predator *x*
 
-**☀️🌦️🍂 Seasonal Sunlight**
+### ☀️🌦️🍂 R(t): Seasonal Sunlight
 
 $$
 R(t) = 100 + 50 * \sin\left(\frac{2 * \pi * t}{50}\right)
@@ -222,7 +214,7 @@ $$
   - min: 100 − 50 = 50
   - max: 100 + 50 = 150
 
-**🌱📈🌿 Plant Carrying Capacity**
+### 🌱📈🌿 K<sub>plants</sub>(t): Plant Carrying Capacity
 
 $$
 K_\text{plants}(t) = K_{\text{max}} * \left(1 - e^{-\beta * R(t)}\right)
@@ -234,32 +226,59 @@ $$
   - When R is small: K<sub>plants</sub> is small.
   - As R increases, 𝐾<sub>plants</sub> → 𝐾<sub>max</sub>
 
-**🌾🔄🌱 Plant Dynamics** (when $i = 0$):
+### 🌵 δ(t): Drought Factor
+
+This factor simulates periods of drought and affects plant growth.
+
+##### Definition:
+- δ(t) = 0.3 if 70 ≤ (t mod 100) ≤ 80,
+- δ(t) = 1.0 otherwise
+
+##### Explanation:
+- Every **100 time steps**, there is a **10-step drought window** from step 70 to 80.
+- During this window, δ(t) = **0.3**, representing **scarce resources or harsh conditions**.
+- Outside this window, δ(t) = **1.0**, indicating **normal environmental conditions**.
+
+### 🏹🐺📉 η(t): Hunting Factor
+
+This factor simulates external (e.g. human) hunting pressure, but **only** on top predators.
+
+##### Definition:
+- η(t) = 0.5 if 150 ≤ (t mod 200) ≤ 160 and i ∈ {BigCats, PredBirds},
+- η(t) = 1.0 otherwise
+
+##### Explanation:
+- Every **200 time steps**, there is a **10-step hunting season** from step 150 to 160.
+- During this window, **BigCats** and **PredBirds** experience increased suppression (modeled as η(t) = **0.5**).
+- All other species are unaffected.
+- Outside the hunting season, η(t) = **1.0** for all species.
+
+### 🌾🔄🌱 [ dY<sub>0</sub>(t) / dt ]: Plant Dynamics (when $i = 0$):
 
 $$
-\frac{dY_0}{dt} = r_\text{plants} * Y_0 * \left(1 - \frac{Y_0}{K_\text{plants}(t)}\right) * \delta(t) + \left(0.02 * Y_{13}\right) - \left(\sum_{x=1}^{n-1} A_{x0} * \alpha_{x0} * Y_x\right) * Y_0 - \left(d_0 * Y_0\right)
+\frac{dY_0(t)}{dt} = r_\text{plants} * Y_0(t) * \left(1 - \frac{Y_0(t)}{K_\text{plants}(t)}\right) * \delta(t) + \left(0.02 * Y_{13}(t)\right) - \left(\sum_{x=1}^{n-1} A_{x0} * \alpha_{x0} * Y_x(t)\right) * Y_0(t) - \left(d_0 * Y_0(t)\right)
 $$
 
-**🐾🦌🦊 Other species** (when $i \ne 0, 13$):
+### 🐾🦌🦊 [ dY<sub>i</sub>(t) / dt ]: Other species (when $i \ne 0, 13$):
 
 $$
-\frac{dY_i}{dt} = \left(\sum_{y=0}^{n-1} A_{iy} * \alpha_{iy} * Y_y * \epsilon_{iy}\right) * Y_i - \left(\sum_{x=0}^{n-1} * A_{xi} * \alpha_{xi} * Y_x\right) * Y_i - \left(d_i * Y_i\right)
+\frac{dY_i(t)}{dt} = \left(\sum_{y=0}^{n-1} A_{iy} * \alpha_{iy} * \epsilon_{iy} * Y_y(t)\right) * Y_i(t) - \left(\sum_{x=0}^{n-1} * A_{xi} * \alpha_{xi} * Y_x(t)\right) * Y_i(t) - \left(d_i * Y_i(t)\right)
 $$
 
-- **🏹🐺📉 Hunting Adjustment**
+- 🏹🐺 <i>hunting adjustment</i>
 
 $$
 \text{when } \left( i \in \text{BigCats} \right) OR \left( i \in \text{PredBirds} \right)
 $$
 
 $$
-\hspace{3cm} \text{apply hunting factor } \rightarrow \text{ } \frac{dY_i}{dt} = \frac{dY_i}{dt} * \eta(t)
+\hspace{3cm} \text{apply hunting factor } \rightarrow \text{ } \frac{dY_i(t)}{dt} = \frac{dY_i(t)}{dt} * \eta(t)
 $$
 
-**🍄🪱🧫 Decomposers** (when $i = 13$):
+### 🍄🪱🧫 [ dY<sub>13</sub>(t) / dt ]: Decomposers (when $i = 13$):
 
 $$
-\frac{dY_{13}}{dt} = 0.05 * \left(\sum_{\substack{j=0 \\ j \ne 13}}^{n-1} d_j * Y_j\right) - \left(d_{13} * Y_{13}\right)
+\frac{dY_{13}(t)}{dt} = 0.05 * \left(\sum_{\substack{j=0 \\ j \ne 13}}^{n-1} d_j * Y_j(t)\right) - \left(d_{13} * Y_{13}(t)\right)
 $$
 
 
