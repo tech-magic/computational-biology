@@ -108,9 +108,9 @@ species = [
 **🦁🔢🦌 Predation Matrix (A)**
 
 - The <i>Predation Matrix</i> **A** is derived from the collection of **{Predator -> Prey} Edges**  
-- Each row in the <i>Predation Matrix</i> **A** represents a **🦁Predator**.
+- **Each row** in the <i>Predation Matrix</i> **A** represents a **🦁Predator**.
 - <i>Row index</i> is denoted by **x**; where **x** ∈ **i**.
-- Each column in the <i>Predation Matrix</i> **A** represents a **🦌Prey**.
+- **Each column** in the <i>Predation Matrix</i> **A** represents a **🦌Prey**.
 - <i>Column index</i> is denoted by **y**; where **y** ∈ **i**.
 - Recall that **i** is the **Species Index** with integer values **from 0 to 13**.
 
@@ -195,12 +195,12 @@ Let:
 - r<sub>plants</sub>: Intrinsic growth rate of *plants*  
 - K<sub>plants</sub>(t): Carrying capacity of *plants* (time-dependent)
 - K<sub>max</sub>: Maximum Carrying capacity of *plants*   
-- d<sub>i</sub>: Natural death rate of species *i*  
-- α<sub>ij</sub>: Attack rate of predator *i* on prey *j*  
-- ε<sub>ij</sub>: Efficiency of converting consumed prey *j* to biomass for predator *i*  
-- A<sub>ij</sub> ∈ {0, 1}: Predation matrix; 1 if *i* preys on *j*
-  - *i* is the predator
-  - *j* is the prey 
+- d<sub>i</sub>: Natural death rate of species *i*
+- A<sub>xy</sub> ∈ {0, 1}: Predation matrix; 1 if *x* preys on *y*
+  - *x* is the predator
+  - *y* is the prey
+- α<sub>xy</sub>: Attack rate of predator *x* on prey *y*  
+- ε<sub>xy</sub>: Efficiency of converting consumed prey *x* to biomass for predator *y*  
 - R(t): Sunlight availability at time *t*  
 - δ(t): Drought factor  
   - δ(t) = 0.3 if 70 ≤ (t mod 100) ≤ 80,  
@@ -237,22 +237,16 @@ $$
 **🌾🔄🌱 Plant Dynamics** (when $i = 0$):
 
 $$
-\frac{dY_0}{dt} = r_\text{plants} * Y_0 * \left(1 - \frac{Y_0}{K_\text{plants}(t)}\right) * \delta(t) + \left(0.02 * Y_{13}\right) - \left(\sum_{j=1}^{n-1} A_{j0} * \alpha_{j0} * Y_j\right) * Y_0 - \left(d_0 * Y_0\right)
+\frac{dY_0}{dt} = r_\text{plants} * Y_0 * \left(1 - \frac{Y_0}{K_\text{plants}(t)}\right) * \delta(t) + \left(0.02 * Y_{13}\right) - \left(\sum_{x=1}^{n-1} A_{x0} * \alpha_{x0} * Y_x\right) * Y_0 - \left(d_0 * Y_0\right)
 $$
 
 **🐾🦌🦊 Other species** (when $i \ne 0, 13$):
 
 $$
-\frac{dY_i}{dt} = \left(\sum_{j=0}^{n-1} A_{ij} * \alpha_{ij} * Y_j * \epsilon_{ij}\right) * Y_i - \left(\sum_{j=0}^{n-1} * A_{ji} * \alpha_{ji} * Y_j\right) * Y_i - \left(d_i * Y_i\right)
+\frac{dY_i}{dt} = \left(\sum_{y=0}^{n-1} A_{iy} * \alpha_{iy} * Y_y * \epsilon_{iy}\right) * Y_i - \left(\sum_{x=0}^{n-1} * A_{xi} * \alpha_{xi} * Y_x\right) * Y_i - \left(d_i * Y_i\right)
 $$
 
-**🍄🪱🧫 Decomposers** (when $i = 13$):
-
-$$
-\frac{dY_{13}}{dt} = 0.05 * \left(\sum_{\substack{j=0 \\ j \ne 13}}^{n-1} d_j * Y_j\right) - \left(d_{13} * Y_{13}\right)
-$$
-
-**🏹🐺📉 Hunting Adjustment**
+- **🏹🐺📉 Hunting Adjustment**
 
 $$
 \text{when } \left( i \in \text{BigCats} \right) OR \left( i \in \text{PredBirds} \right)
@@ -260,6 +254,12 @@ $$
 
 $$
 \hspace{3cm} \text{apply hunting factor } \rightarrow \text{ } \frac{dY_i}{dt} = \frac{dY_i}{dt} * \eta(t)
+$$
+
+**🍄🪱🧫 Decomposers** (when $i = 13$):
+
+$$
+\frac{dY_{13}}{dt} = 0.05 * \left(\sum_{\substack{j=0 \\ j \ne 13}}^{n-1} d_j * Y_j\right) - \left(d_{13} * Y_{13}\right)
 $$
 
 
