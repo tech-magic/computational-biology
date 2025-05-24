@@ -75,10 +75,16 @@ You can iterate this to model how the population evolves over time.
 
 ## 📈 Biological Interpretation
 
-- **Top row**: births contributed by existing individuals.
-- **Subdiagonal**: individuals aging into the next group.
+- **Top Row** (Births): Shows how many offspring each age group contributes (fertility).
+- **Subdiagonal**: Survival probabilities from one age class to the next.
 - **Eigenvalues**: indicate long-term growth or decline rate.
-- **Dominant eigenvector**: gives the stable age distribution.
+    - (Dominant eigenvalue > 1) → (population grows)
+    - (Dominant eigenvalue < 1) → (population declines)
+    - (Dominant eigenvalue = 1) → (population is stable)
+- **Dominant eigenvector**:
+    - Gives the stable age distribution.
+    - Represents the relative proportions of individuals in each age class after many generations.
+
 
 ---
 
@@ -133,13 +139,3 @@ print("  Dominant eigenvalue (growth rate):", round(dominant_eigenvalue, 3))
 print("  Stable age distribution (dominant eigenvector):", np.round(stable_age_distribution, 3))
 ```
 
-### 📌 Output Explanation:
-
-- Top Row (Births): Shows how many offspring each age group contributes (fertility).
-- Subdiagonal: Survival probabilities from one age class to the next.
-- Eigenvalues:
-    - Dominant eigenvalue > 1 → population grows.
-    - Dominant eigenvalue < 1 → population declines.
-    - = 1 → stable size.
-- Dominant Eigenvector:
-    - Represents the stable age distribution — the relative proportions of individuals in each age class after many generations.

@@ -1,7 +1,7 @@
-# PCA on a 10×5 Matrix: Find Top 3 Features
+# 📊 Principal Component Analysis (PCA) on a 10×5 Matrix: Find Top 3 Features
 
 🔢 Given:
-\(X\) be a 10x5 dataset (10 samples, 5 features) represented as a (10 rows, 5 columns) matrix:
+X be a 10x5 dataset (10 samples, 5 features) represented as a (10 rows, 5 columns) matrix:
 
 ```
 X = [x11 x12 x13 x14 x15;
@@ -186,15 +186,17 @@ $$
 \hat{Z} = Z_{\text{proj}} * W^T \in \mathbb{R}^{10 \times 5}
 $$
 
-- \(Z_{\text{proj}}\) is the projection:  
-  $$
-  Z_{\text{proj}} \in \mathbb{R}^{10 \times 3}
-  $$
+- Z<sub>proj</sub> is the projection:
 
-- \(W^T\) is the transpose of the top-3 (based on the previous example) eigenvectors:  
-  $$
+$$
+  Z_{\text{proj}} \in \mathbb{R}^{10 \times 3}
+$$
+
+- W<sup>T</sup> is the transpose of the top-3 (based on the previous example) eigenvectors:
+
+$$
   W^T \in \mathbb{R}^{3 \times 5}
-  $$
+$$
 
 This gives you the best rank-3 approximation of the standardized data in the least squares sense.
 
@@ -205,7 +207,7 @@ $$
 \hat{X} = \hat{Z} + \mu
 $$
 
-Where \(\mu\) is the row vector of original feature means (broadcasted across all rows):
+Where μ is the row vector of original feature means (broadcasted across all rows):
 
 $$
 \mu \in \mathbb{R}^{1 \times 5}
@@ -283,9 +285,9 @@ C = \frac{1}{n - 1} * Z^T * Z
 $$
 
 where:
-- \( Z \) is your standardized data matrix,
-- \( C \) is **real-valued** (because your data is real),
-- \( C \) is also **symmetric**, since \( C = C^T \).
+- Z is your standardized data matrix,
+- C is **real-valued** (because your data is real),
+- C is also **symmetric**, since C = C<sup>T</sup>.
 
 ##### Key Linear Algebra Fact
 
@@ -302,7 +304,7 @@ To understand how much information is retained by the principal components, we u
 
 ##### 🔸 Formula:
 
-For the $i$-th principal component:
+For the `i`-th principal component:
 
 $$
 \text{Explained Variance Ratio} = \frac{\lambda_i}{\sum_{j=1}^{5} \lambda_j}, \quad i = 1, 2, 3
